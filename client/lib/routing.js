@@ -26,13 +26,23 @@ FlowRouter.route('/ikeep/show', {
 	}
 });
 
-// TODO: display GOOGLE CHART API
+// TODO: get data.
 FlowRouter.route('/ikeep/dashboard', {
 	action: function() {
 		document.title = "iKeep - Dashboard";
 		BlazeLayout.render('layout', {
 			nav: 'nav_menu',
 			body: 'mt_dashboard'
+		});
+	}
+});
+
+FlowRouter.route('/register', {
+	action: function() {
+		document.title = "iKeep - Register";
+		BlazeLayout.render('layout', {
+			nav: 'nav_menu',
+			body: 'register'
 		});
 	}
 });

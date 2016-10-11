@@ -14,39 +14,52 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>Test</td>
-					<td>Test</td>
-					<td>Test</td>
-					<td>Test</td>
-					<td>{{> cancel_update_btn}}</td>
-				</tr>
+				{{> Template.dynamic template=settingForm}}
+				<!-- {{> edit_delete_form}} -->
 			</tbody>
 		</table>
 
 		<!-- TODO: change to a button -->
-		<button id="expandForm" class="btn btn-danger form-control">Add</button>
+		<!-- <button id="expandForm" class="btn btn-danger form-control">Add</button> -->
 
-		<div class="margin-top-20px">
+<!-- 		<div class="margin-top-20px">
 			{{> add_form}}
-		</div>
+		</div> -->
 	</div>
 </template>
 
 <!-- Edit/Delete button -->
-<template name="edit_delete_btn">
-	<div class="btn-group">
-		<a class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-		<a class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-	</div>
+<template name="edit_delete_form">
+	<tr>
+		<td>NORMAL</td>
+		<td>NORMAL</td>
+		<td>NORMAL</td>
+		<td>NORMAL</td>
+
+		<td>
+			<div class="btn-group">
+				<a class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+				<a data-form="cancel_update_form" class="changeForm btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+			</div>
+		</td>
+	</tr>
 </template>
 
 <!-- Cancel/Update button -->
-<template name="cancel_update_btn">
-	<div class="btn-group">
-		<a class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></a>
-		<a class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></a>
-	</div>
+<template name="cancel_update_form">
+	<tr>
+		<td><input class="form-control" type="text" placeholder="Receipt Name" /></td>
+		<td>{{> payment_method}}</td>
+		<td><input class="form-control" type="text" placeholder="Price" /></td>
+		<td>Test</td>
+
+		<td>
+			<div class="btn-group">
+				<a class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></a>
+				<a data-form="edit_delete_form" class="changeForm btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></a>
+			</div>
+		</td>
+	</tr>
 </template>
 
 <!-- Add form template-->
@@ -54,23 +67,30 @@
 	<form class="form-inline">
 		<div class="form-group">
 			<label for="inputName">Item Name</label>
-			<input type="text" class="form-control" id="getItemName" placeholder="Item Name" />
+			<input type="text" class="form-control" id="itemName" placeholder="Item Name" />
 		</div>
 
-		<div class="form-group">
-			<label for="Payment Method">Payment Method</label>
-			<select class="form-control" id="getPaymentMethod">
-				<option value="Cash">Cash</option>
-				<option value="Visa">Visa</option>
-				<option value="MasterCard">MasterCard</option>
-				<option value="American Express">American Express</option>
-				<option value="Paypal">Paypal</option>
-			</select>
-		</div>
+		<label for="Payment Method">Payment Method</label>
+		{{> payment_method}}
 
 		<div class="form-group">
 			<label for="inputPrice">Price</label>
-			<input type="text" class="form-control" id="getPrice" placeholder="Price" />
+			<input type="text" class="form-control" id="price" placeholder="Price" />
 		</div>
+
+		<button class="btn btn-primary">Submit</button>
 	</form>
+</template>
+
+<template name="payment_method">
+	<div class="form-group">
+		<select class="form-control" id="paymentMethod">
+			<option value="Cash">Cash</option>
+			<option value="Visa">Visa</option>
+			<option value="MasterCard">MasterCard</option>
+			<option value="American Express">American Express</option>
+			<option value="Paypal">Paypal</option>
+			<option value="Other">Other</option>
+		</select>
+	</div>
 </template>

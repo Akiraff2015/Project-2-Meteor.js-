@@ -26,7 +26,14 @@
 				</ul>
 
 				<form class="navbar-form navbar-right">
-					<button type="button" id="loginButton" class="btn btn-danger" data-toggle="modal" data-target="#userModal"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
+<!-- 					<button type="button" id="loginButton" class="btn btn-danger" data-toggle="modal" data-target="#userModal"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
+ -->
+					{{#if currentUser}}
+						<button type="button" id="logout" class="btn btn-danger">Logout</button>
+
+					{{else}}
+						<button type="button" id="loginButton" class="btn btn-danger" data-toggle="modal" data-target="#userModal"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
+					{{/if}}
 				</form>
 			</div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->
