@@ -1,0 +1,76 @@
+<!-- Display everything -->
+<template name="mt_show">
+	<div class="container">
+		<h1>This is a test</h1>
+
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Receipt Name</th>
+					<th>Payment Method</th>
+					<th>Price</th>
+					<th>Date</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Test</td>
+					<td>Test</td>
+					<td>Test</td>
+					<td>Test</td>
+					<td>{{> cancel_update_btn}}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- TODO: change to a button -->
+		<button id="expandForm" class="btn btn-danger form-control">Add</button>
+
+		<div class="margin-top-20px">
+			{{> add_form}}
+		</div>
+	</div>
+</template>
+
+<!-- Edit/Delete button -->
+<template name="edit_delete_btn">
+	<div class="btn-group">
+		<a class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+		<a class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+	</div>
+</template>
+
+<!-- Cancel/Update button -->
+<template name="cancel_update_btn">
+	<div class="btn-group">
+		<a class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></a>
+		<a class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i></a>
+	</div>
+</template>
+
+<!-- Add form template-->
+<template name="add_form">
+	<form class="form-inline">
+		<div class="form-group">
+			<label for="inputName">Item Name</label>
+			<input type="text" class="form-control" id="getItemName" placeholder="Item Name" />
+		</div>
+
+		<div class="form-group">
+			<label for="Payment Method">Payment Method</label>
+			<select class="form-control" id="getPaymentMethod">
+				<option value="Cash">Cash</option>
+				<option value="Visa">Visa</option>
+				<option value="MasterCard">MasterCard</option>
+				<option value="American Express">American Express</option>
+				<option value="Paypal">Paypal</option>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="inputPrice">Price</label>
+			<input type="text" class="form-control" id="getPrice" placeholder="Price" />
+		</div>
+	</form>
+</template>
