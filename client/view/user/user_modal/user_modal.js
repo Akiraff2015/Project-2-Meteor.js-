@@ -9,6 +9,7 @@ Template.user_modal.events({
 			//TODO: error handling
 			if (typeof e === "undefined") {
 				FlowRouter.go("/ikeep/dashboard");
+				$('#userModal').modal('hide');
 
 			// Throws an error
 			} else {

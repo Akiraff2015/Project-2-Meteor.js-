@@ -26,10 +26,17 @@
 				</ul>
 
 				<form class="navbar-form navbar-right">
-<!-- 					<button type="button" id="loginButton" class="btn btn-danger" data-toggle="modal" data-target="#userModal"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
- -->
 					{{#if currentUser}}
-						<button type="button" id="logout" class="btn btn-danger">Logout</button>
+						<div class="btn-group">
+							<button type="button" class="btn btn-danger"><i class="fa fa-user" aria-hidden="true"></i> {{currentUser.username}}</button>
+								<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<span class="caret"></span>
+								<span class="sr-only">Toggle Dropdown</span>
+							</button>
+							<ul class="dropdown-menu">
+								<li id="logout"><a href="#">Logout</a></li>
+							</ul>
+						</div>
 
 					{{else}}
 						<button type="button" id="loginButton" class="btn btn-danger" data-toggle="modal" data-target="#userModal"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
