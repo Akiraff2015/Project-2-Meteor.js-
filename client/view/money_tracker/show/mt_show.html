@@ -1,7 +1,7 @@
 <!-- Display everything -->
 <template name="mt_show">
 	<div class="container">
-		<h1>This is a test</h1>
+		<h1>This is a test {{totalPrice}}<button id="expandForm" class="btn btn-danger"><i class="fa fa-plus" aria-hidden="true"></i></button></h1>
 
 		<table class="table table-hover">
 			<thead>
@@ -19,30 +19,30 @@
 			</tbody>
 		</table>
 
-		<!-- TODO: change to a button -->
-		<!-- <button id="expandForm" class="btn btn-danger form-control">Add</button> -->
 
-<!-- 		<div class="margin-top-20px">
+		<div class="margin-top-20px">
 			{{> add_form}}
-		</div> -->
+		</div>
 	</div>
 </template>
 
 <!-- Edit/Delete button -->
 <template name="edit_delete_form">
-	<tr>
-		<td>NORMAL</td>
-		<td>NORMAL</td>
-		<td>NORMAL</td>
-		<td>NORMAL</td>
+	{{#each receipt}}
+		<tr>
+			<td>{{item}}</td>
+			<td>{{payment}}</td>
+			<td>{{price}}</td>
+			<td>{{date}}</td>
 
-		<td>
-			<div class="btn-group">
-				<a class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-				<a data-form="cancel_update_form" class="changeForm btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-			</div>
-		</td>
-	</tr>
+			<td>
+				<div class="btn-group">
+					<a class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+					<a data-form="cancel_update_form" class="changeForm btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+				</div>
+			</td>
+		</tr>
+	{{/each}}
 </template>
 
 <!-- Cancel/Update button -->
@@ -78,7 +78,7 @@
 			<input type="text" class="form-control" id="price" placeholder="Price" />
 		</div>
 
-		<button class="btn btn-primary">Submit</button>
+		<button class="addFormButton btn btn-primary">Submit</button>
 	</form>
 </template>
 
