@@ -1,0 +1,1 @@
+export const Receipt = new Mongo.Collection('receipt');

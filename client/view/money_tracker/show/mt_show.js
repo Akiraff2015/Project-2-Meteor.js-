@@ -1,8 +1,7 @@
+import {Receipt} from '../../../../imports/api/receipt.js';
 // Setting sessions
 Session.setDefault('form', 'edit_delete_form');
-
 Meteor.subscribe('receipt');
-const Receipt = new Mongo.Collection('receipt');
 
 Template.edit_delete_form.helpers({
 	receipt: function() {
@@ -35,6 +34,7 @@ Template.mt_show.helpers({
 Template.mt_show.events ({
 	'click #expandForm':function(e) {
 		e.preventDefault();
+		Meteor.call('totalPaymentCash');
 	},
 
 	'click .changeForm': function(e, template) {

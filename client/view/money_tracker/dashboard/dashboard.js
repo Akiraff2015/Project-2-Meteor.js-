@@ -1,11 +1,29 @@
 import Chart from 'chart.js';
+import {Receipt} from '../../../../imports/api/receipt.js';
+import {ReactiveVar} from 'meteor/reactive-var';
 
-Template.mt_dashboard.rendered = function() {
+
+Template.mt_dashboard.helpers({
+	totalPrice: function() {
+		return receiptTotal.get();
+	}
+});
+
+let subHandle;
+let receiptTotal = new ReactiveVar(0);
+
+
+Template.mt_dashboard.onCreated(function() {
+	subHandle = Meteor.subscribe('receipt');
+});
+
+Template.mt_dashboard.onRendered(function() {
+
 	var ctx = $("#chartLineGraph");
 	var ctx2 = $("#chartPieGraph");
-
 	//Line Graph
 	// TODO --> generate dynamic content
+
 	var chartLineGraph = new Chart(ctx, {
 		type: 'line',
 		data: {
@@ -58,7 +76,6 @@ Template.mt_dashboard.rendered = function() {
 			}
 		}
 	});
-
 	var chartPieGraph = new Chart(ctx2, {
 		type: 'pie',
 		label: "Payment Distribution",
@@ -66,7 +83,7 @@ Template.mt_dashboard.rendered = function() {
 			labels: ["Cash", "MasterCard", "Other"],
 			datasets: [{
 				label: 'Daily Money Spent',
-				data: [300, 50, 100],
+				data: [1, 50, 100],
 				backgroundColor: [
 					"#FF6384",
 					"#36A2EB",
@@ -80,4 +97,23 @@ Template.mt_dashboard.rendered = function() {
 			}]
 		}
 	});
-}
+
+	this.autorun(function() {
+			if (subHandle.ready()) {
+				let payments = Receipt.find().fetch();
+				let paymentMethods = _.groupBy(payments, 'payment');
+				let methodNames = Object.keys(paymentMethods);
+				
+				for (var method in paymentMethods) {
+					let total = _.reduce(paymentMethods[method], (memo, entry) => memo + parseFloat(entry.price), 0);
+					paymentMethods[method] = parseFloat(total.toFixed(2));
+				}
+				paymentMethods = _.values(paymentMethods);
+
+				chartPieGraph.data.labels = methodNames;
+				chartPieGraph.data.datasets[0].data = paymentMethods;
+				chartPieGraph.update();
+				receiptTotal.set(_.reduce(payments, (memo, entry) => memo + parseFloat(entry.price), 0).toFixed(2));
+			}
+	});
+});
