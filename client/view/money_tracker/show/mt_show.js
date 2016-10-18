@@ -1,21 +1,21 @@
 // Setting sessions
 Session.setDefault('form', 'edit_delete_form');
 
-const Receipt = new Mongo.Collection('receipt');
 Meteor.subscribe('receipt');
-
-// var total = 0;
-
-// Receipt.find({price}).map(function(data) {
-// 	total += data.toFloat();
-// });
-
-// console.log(total);
+const Receipt = new Mongo.Collection('receipt');
 
 Template.edit_delete_form.helpers({
 	receipt: function() {
 		return Receipt.find({}, {sort: {createdAt: -1}});
 	},
+});
+
+Template.edit_delete_form.events({
+	'click .deleteButton': function(e) {
+		Meteor.call('removeReceipt', this._id);
+		e.preventDefault();
+
+	}
 });
 
 Template.mt_show.helpers({
@@ -28,7 +28,7 @@ Template.mt_show.helpers({
 		Receipt.find().map(function(data) {
 			total += parseFloat(data.price);
 		});
-		return total;
+		return total.toFixed(2);
 	}
 });
 
@@ -46,12 +46,11 @@ Template.mt_show.events ({
 		var paymentMethod = $('#paymentMethod').val();
 		var price = $('#price').val();
 
-		Receipt.insert({
-			item: itemName,
-			payment: paymentMethod,
-			price: price,
-			date: new Date()
-		});
+		Meteor.call('addNewReceipt', itemName, paymentMethod, price);
+
+		$('#itemName').val("");
+		$('#paymentMethod').val("");
+		$('#price').val("");
 
 		e.preventDefault();
 	}
